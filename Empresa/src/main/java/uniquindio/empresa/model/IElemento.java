@@ -5,5 +5,7 @@ import java.util.List;
 public interface IElemento {
     public double calcularCosto();
 
+    public List<IElemento> obtenerElementos();
+
 
 }

@@ -7,15 +7,12 @@ public class TecnicoLegacyService {
         this.datosTecnico = datosTecnico;
     }
 
-    public String consultarCodigoTecnico() {
-        return datosTecnico; //TERMINAR
+    public String getDatosTecnico() {
+        return datosTecnico;
     }
 
-    public String consultarDisponibilidad() {
-        return datosTecnico; //TERMINAR
-    }
-    public String consultarValorDesplazamiento() {
-        return datosTecnico; //TERMINAR
+    public void setDatosTecnico(String datosTecnico) {
+        this.datosTecnico = datosTecnico;
     }
 
 }
