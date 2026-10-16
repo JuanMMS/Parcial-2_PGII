@@ -26,11 +26,11 @@ public class Cliente {
      * Getters y Setters
      */
 
-    public String getDoucmento() {
+    public String getDocumento() {
         return doucmento;
     }
 
-    public void setDoucmento(String doucmento) {
+    public void setDocumento(String documento) {
         this.doucmento = doucmento;
     }
 
