@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="20" prefHeight="450.0" prefWidth="520.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uniquindio.empresa.viewcontroller.MainMenuViewController">
+    <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+    <Label text="TechSolutions" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+    <Label text="Sistema de Gestión y Servicios Tecnológicos" style="-fx-font-size: 15px; -fx-text-fill: #7f8c8d;"/>
+
+    <Separator prefWidth="200"/>
+
+    <Button text="1. Gestión de Servicios" onAction="#abrirGestionServicios" prefWidth="320" prefHeight="42" style="-fx-font-size: 13px;"/>
+
+    <Button text="2. Configuración de Paquetes" onAction="#abrirConfiguracionPaquetes" prefWidth="320" prefHeight="42" style="-fx-font-size: 13px;"/>
+
+    <Button text="3. Solicitudes y Técnicos" onAction="#abrirRegistroSolicitudes" prefWidth="320" prefHeight="42" style="-fx-font-size: 13px;"/>
+
+    <Separator prefWidth="200"/>
+    <Button text="Salir del Sistema" onAction="#salirSistema" prefWidth="160" prefHeight="35" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+</VBox>
