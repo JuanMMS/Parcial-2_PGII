@@ -1,4 +1,8 @@
 package uniquindio.empresa.model.Factory;
 
-public class FactoryServicioTecnologico {
+import uniquindio.empresa.model.ServicioTecnologico;
+
+public abstract class FactoryServicioTecnologico {
+
+    public abstract ServicioTecnologico crearServicioTecnologico(DatosServicioTecnologico datos);
 }

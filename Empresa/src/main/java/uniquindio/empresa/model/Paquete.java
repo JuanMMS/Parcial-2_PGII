@@ -1,4 +1,5 @@
 package uniquindio.empresa.model;
 
-public class Paquete {
+public class Paquete{
+
 }
