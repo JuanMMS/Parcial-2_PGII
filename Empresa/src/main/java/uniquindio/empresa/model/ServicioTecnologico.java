@@ -1,6 +1,6 @@
 package uniquindio.empresa.model;
 
-public abstract class ServicioTecnologico implements IServicio{
+public abstract class ServicioTecnologico implements IServicio, IComplemento {
     private String codigo;
     private String nombre;
     private String descripcion;
@@ -38,5 +38,10 @@ public abstract class ServicioTecnologico implements IServicio{
     @Override
     public double getCosto() {
         return costoBase;
+    }
+
+    @Override
+    public double valorComplemento(){
+        return 0;
     }
 }
