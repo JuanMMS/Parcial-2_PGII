@@ -1,12 +1,21 @@
 package uniquindio.empresa.model;
 
 public class AdapterLegacy implements IConsultaTecnico {
+
+    /**
+     * Metodo constructor de la clase AdapterLegacy
+     */
     private TecnicoLegacyService tecnicoLegacyService;
     public AdapterLegacy(TecnicoLegacyService tecnicoLegacyService) {
         this.tecnicoLegacyService = tecnicoLegacyService;
     }
 
 
+    /**
+     * Metodo que determina el codigo de un TecnicoLegacyService
+     * @param tecnicoLegacyService
+     * @return
+     */
     @Override
     public String consultarCodigoTecnico(TecnicoLegacyService tecnicoLegacyService) {
         String sinTraducir = tecnicoLegacyService.getDatosTecnico();
@@ -20,6 +29,11 @@ public class AdapterLegacy implements IConsultaTecnico {
         return "SIN_CODIGO";
     }
 
+    /**
+     * Metodo que determina la disponibilidad de un TecnicoLegacyService
+     * @param tecnicoLegacyService
+     * @return
+     */
     @Override
     public boolean consultarDisponibilidad(TecnicoLegacyService tecnicoLegacyService) {
         String sinTraducir = tecnicoLegacyService.getDatosTecnico();
@@ -33,6 +47,11 @@ public class AdapterLegacy implements IConsultaTecnico {
         return false;
     }
 
+    /**
+     * Metodo que deterimina el valor de desplazamiento de un TecnicoLegacyService
+     * @param tecnicoLegacyService
+     * @return
+     */
     @Override
     public double consultarValorDesplazamiento(TecnicoLegacyService tecnicoLegacyService) {
         String sinTraducir = tecnicoLegacyService.getDatosTecnico();

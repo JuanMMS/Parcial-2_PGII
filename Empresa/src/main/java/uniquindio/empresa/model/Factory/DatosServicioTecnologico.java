@@ -8,7 +8,7 @@ public class DatosServicioTecnologico {
 
 
     /**
-     * Metodo constructor de servicio tecnologico
+     * Metodo que construye los datos basicos para crear un servicio tecnologico
      * @param codigo
      * @param nombre
      * @param descripcion
@@ -22,6 +22,10 @@ public class DatosServicioTecnologico {
 
     }
 
+    /**
+     * Getters y setters
+     * @return
+     */
     public String getCodigo() {
         return codigo;
     }
