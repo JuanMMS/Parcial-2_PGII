@@ -1,5 +1,8 @@
 package uniquindio.empresa.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class ServicioTecnologico implements IElemento, IComplemento {
     private String codigo;
     private String nombre;
@@ -12,14 +15,20 @@ public abstract class ServicioTecnologico implements IElemento, IComplemento {
      * @param codigo
      * @param nombre
      * @param descripcion
-     * @param costoBase
      */
-    public ServicioTecnologico(String codigo, String nombre, String descripcion, double costoBase) {
+    public ServicioTecnologico(String codigo, String nombre, String descripcion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.costoBase = costoBase;
+        this.costoBase = calcularCosto();
 
+    }
+
+    @Override
+    public List<IElemento> obtenerElementos() {
+        List<IElemento> elementos = new ArrayList<>();
+        elementos.add(this);
+        return elementos;
     }
 
     public String getCodigo() {

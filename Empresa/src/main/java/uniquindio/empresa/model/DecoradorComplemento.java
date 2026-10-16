@@ -11,4 +11,15 @@ public abstract class DecoradorComplemento implements IComplemento {
         this.id = id;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ServicioTecnologico getServicioTecnologico() {
+        return servicioTecnologico;
+    }
 }
