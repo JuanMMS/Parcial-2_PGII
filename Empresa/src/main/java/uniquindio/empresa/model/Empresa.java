@@ -1,5 +1,7 @@
 package uniquindio.empresa.model;
 
+import uniquindio.empresa.model.Factory.FactoryServicioTecnologico;
+
 import java.util.ArrayList;
 
 public final class Empresa {
@@ -36,7 +38,7 @@ public final class Empresa {
      */
     public static Empresa getInstance() {
         if (instance == null) {
-            instance = new Empresa;
+            instance = new Empresa();
         }
         return instance;
     }
