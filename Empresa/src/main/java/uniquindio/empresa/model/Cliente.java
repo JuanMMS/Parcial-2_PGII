@@ -6,7 +6,7 @@ public class Cliente {
     private String doucmento;
     private String nombreCompleto;
     private String correoElectronico;
-    private ArrayList<SolicitudServicio> listSolicitudesServicioCliente;
+    private ArrayList<SolicitudServicioBuilder> listSolicitudesServicioCliente;
 
 
     /**
@@ -50,11 +50,11 @@ public class Cliente {
         this.correoElectronico = correoElectronico;
     }
 
-    public ArrayList<SolicitudServicio> getListSolicitudesServicioCliente() {
+    public ArrayList<SolicitudServicioBuilder> getListSolicitudesServicioCliente() {
         return listSolicitudesServicioCliente;
     }
 
-    public void setListSolicitudesServicioCliente(ArrayList<SolicitudServicio> listSolicitudesServicioCliente) {
+    public void setListSolicitudesServicioCliente(ArrayList<SolicitudServicioBuilder> listSolicitudesServicioCliente) {
         this.listSolicitudesServicioCliente = listSolicitudesServicioCliente;
     }
 }

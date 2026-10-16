@@ -4,7 +4,6 @@ package uniquindio.empresa.model;
 import uniquindio.empresa.model.Factory.FactoryServicioTecnologico;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public final class Empresa {
     private String id;
@@ -13,7 +12,7 @@ public final class Empresa {
 
     private ArrayList<ServicioTecnologico> listServicioTecnologicos;
     private ArrayList<Cliente> listClientes;
-    private ArrayList<SolicitudServicio> listSolicitudesServicio;
+    private ArrayList<SolicitudServicioBuilder> listSolicitudesServicio;
     private ArrayList<Paquete> listPaquetes;
 
     private FactoryServicioTecnologico theFactoryServicioTecnologico;
@@ -164,16 +163,16 @@ public final class Empresa {
     // 4. GESTIÓN DE SOLICITUDES DE SERVICIO (CRUD)
     // =========================================================================
 
-    public boolean crearSolicitudServicio(SolicitudServicio nuevaSolicitud) {
+    public boolean crearSolicitudServicio(SolicitudServicioBuilder nuevaSolicitud) {
         if (nuevaSolicitud == null || buscarSolicitudServicio(nuevaSolicitud.getCodigo()) != null) {
             return false;
         }
         return listSolicitudesServicio.add(nuevaSolicitud);
     }
 
-    public SolicitudServicio buscarSolicitudServicio(String codigo) {
+    public SolicitudServicioBuilder buscarSolicitudServicio(String codigo) {
         if (codigo == null || codigo.isBlank()) return null;
-        for (SolicitudServicio solicitud : listSolicitudesServicio) {
+        for (SolicitudServicioBuilder solicitud : listSolicitudesServicio) {
             if (solicitud.getCodigo().equalsIgnoreCase(codigo)) {
                 return solicitud;
             }
@@ -181,8 +180,8 @@ public final class Empresa {
         return null;
     }
 
-    public boolean actualizarSolicitudServicio(String codigo, SolicitudServicio solicitudActualizada) {
-        SolicitudServicio solicitudExistente = buscarSolicitudServicio(codigo);
+    public boolean actualizarSolicitudServicio(String codigo, SolicitudServicioBuilder solicitudActualizada) {
+        SolicitudServicioBuilder solicitudExistente = buscarSolicitudServicio(codigo);
         if (solicitudExistente != null && solicitudActualizada != null) {
             int index = listSolicitudesServicio.indexOf(solicitudExistente);
             listSolicitudesServicio.set(index, solicitudActualizada);
@@ -192,7 +191,7 @@ public final class Empresa {
     }
 
     public boolean eliminarSolicitudServicio(String codigo) {
-        SolicitudServicio solicitud = buscarSolicitudServicio(codigo);
+        SolicitudServicioBuilder solicitud = buscarSolicitudServicio(codigo);
         if (solicitud != null) {
             return listSolicitudesServicio.remove(solicitud);
         }
@@ -223,7 +222,7 @@ public final class Empresa {
         return listClientes;
     }
 
-    public ArrayList<SolicitudServicio> getListSolicitudesServicio() {
+    public ArrayList<SolicitudServicioBuilder> getListSolicitudesServicio() {
         return listSolicitudesServicio;
     }
 

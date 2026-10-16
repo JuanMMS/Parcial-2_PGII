@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SolicitudServicio {
+public class SolicitudServicioBuilder {
 
     // Atributos obligatorios
     private String codigo;
@@ -23,7 +23,7 @@ public class SolicitudServicio {
     /**
      * Constructor privado invocado únicamente por la clase Builder
      */
-    private SolicitudServicio(Builder builder) {
+    private SolicitudServicioBuilder(Builder builder) {
         this.codigo = builder.codigo;
         this.fechaCreacion = builder.fechaCreacion;
         this.cliente = builder.cliente;
@@ -189,14 +189,14 @@ public class SolicitudServicio {
         /**
          * Metodo que Construye y valida la instancia final de SolicitudServicio
          */
-        public SolicitudServicio build() {
+        public SolicitudServicioBuilder build() {
             if (codigo == null || codigo.isBlank()) {
                 throw new IllegalStateException("El código de la solicitud es obligatorio.");
             }
             if (cliente == null) {
                 throw new IllegalStateException("Debe asociar un cliente a la solicitud.");
             }
-            return new SolicitudServicio(this);
+            return new SolicitudServicioBuilder(this);
         }
     }
 }
