@@ -25,6 +25,15 @@ public class Paquete implements IElemento {
         return costo;
         }
 
+    @Override
+    public List<IElemento> obtenerElementos() {
+        List<IElemento> listaElementos = new ArrayList<>();
+        for (IElemento servicio : listServiciosTecnologicosPaquete) {
+            listaElementos.addAll(servicio.obtenerElementos());
+        }
+        return listaElementos;
+    }
+
     public String getCodigo() {
         return codigo;
     }
