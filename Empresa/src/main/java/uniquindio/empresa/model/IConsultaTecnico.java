@@ -1,7 +1,7 @@
 package uniquindio.empresa.model;
 
 public interface IConsultaTecnico {
-    String consultarCodigoTecnico(String especialidad);
-    boolean consultarDisponibilidad(String especialidad);
-    double consultarValorDesplazamiento(String especialidad);
+    String consultarCodigoTecnico(TecnicoLegacyService tecnicoLegacyService);
+    boolean consultarDisponibilidad(TecnicoLegacyService tecnicoLegacyService);
+    double consultarValorDesplazamiento(TecnicoLegacyService tecnicoLegacyService);
 }
