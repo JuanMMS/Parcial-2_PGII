@@ -9,6 +9,11 @@ public class Paquete implements IElemento {
     private List<IElemento> listServiciosTecnologicosPaquete;
 
 
+    /**
+     * Metodo constructor de la clase Paquete
+     * @param codigo
+     * @param nombre
+     */
     public Paquete(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -16,6 +21,10 @@ public class Paquete implements IElemento {
 
     }
 
+    /**
+     * Metodo que calcula el costo contenido dentro del Paquete
+     * @return
+     */
     @Override
     public double calcularCosto() {
         double costo = 0;
@@ -25,6 +34,10 @@ public class Paquete implements IElemento {
         return costo;
         }
 
+    /**
+     * Metodo que recupera todos los elementos que están conenidos dentro de Paquete
+     * @return
+     */
     @Override
     public List<IElemento> obtenerElementos() {
         List<IElemento> listaElementos = new ArrayList<>();
@@ -34,6 +47,10 @@ public class Paquete implements IElemento {
         return listaElementos;
     }
 
+    /**
+     *Getters y setters
+     * @return
+     */
     public String getCodigo() {
         return codigo;
     }

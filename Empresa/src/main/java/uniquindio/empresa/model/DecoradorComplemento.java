@@ -6,11 +6,21 @@ public abstract class DecoradorComplemento implements IComplemento {
     private String id;
     protected final ServicioTecnologico servicioTecnologico;
 
+    /**>
+     * Metodo constructor de la clase DecoradorComplemento
+     * @param id
+     * @param servicioTecnologico
+     */
     public DecoradorComplemento(String id, ServicioTecnologico servicioTecnologico) {
         this.servicioTecnologico = servicioTecnologico;
         this.id = id;
     }
 
+
+    /**
+     * Getters y setters
+     * @return
+     */
     public String getId() {
         return id;
     }

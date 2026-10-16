@@ -24,6 +24,11 @@ public abstract class ServicioTecnologico implements IElemento, IComplemento {
 
     }
 
+
+    /**
+     * Metodo para obtener los elementos presentes
+     * @return
+     */
     @Override
     public List<IElemento> obtenerElementos() {
         List<IElemento> elementos = new ArrayList<>();
@@ -46,6 +51,10 @@ public abstract class ServicioTecnologico implements IElemento, IComplemento {
         return costoBase;
     }
 
+    /**
+     * Metodo que predefine el valor sin complementos que es de 0
+     * @return
+     */
     public double valorComplemento(){
         return 0;
     }

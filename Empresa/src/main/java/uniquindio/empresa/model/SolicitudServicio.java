@@ -36,7 +36,7 @@ public class SolicitudServicio {
     }
 
     /**
-     * Revisa y calcula el costo total sumando todos los elementos contratados
+     * Metodo que revisa y calcula el costo total sumando todos los elementos contratados
      */
     public double calcularCostoTotal() {
         double total = 0.0;
@@ -48,7 +48,7 @@ public class SolicitudServicio {
         return total;
     }
 
-    // ==================== GETTERS ====================
+    // ==================== GETTERS Y SETTERS ====================
 
     public String getCodigo() {
         return codigo;
@@ -82,8 +82,48 @@ public class SolicitudServicio {
         return nivelPrioridad;
     }
 
+    public boolean getAtencionPresencial() {
+        return atencionPresencial;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setCostoTotal(double costoTotal) {
+        this.costoTotal = costoTotal;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setListElementos(List<IElemento> listElementos) {
+        this.listElementos = listElementos;
+    }
+
+    public void setFechaProgramada(LocalDate fechaProgramada) {
+        this.fechaProgramada = fechaProgramada;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public void setNivelPrioridad(int nivelPrioridad) {
+        this.nivelPrioridad = nivelPrioridad;
+    }
+
     public boolean isAtencionPresencial() {
         return atencionPresencial;
+    }
+
+    public void setAtencionPresencial(boolean atencionPresencial) {
+        this.atencionPresencial = atencionPresencial;
     }
 
     // ==================== PATRÓN BUILDER (CLASE ESTÁTICA ANIDADA) ====================
