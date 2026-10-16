@@ -16,30 +16,25 @@ public class Paquete implements IElemento {
 
     }
 
-
     @Override
+    public double calcularCosto() {
+        double costo = 0;
+        for (IElemento servicio : listServiciosTecnologicosPaquete) {
+            costo += servicio.calcularCosto();
+            }
+        return costo;
+        }
+
     public String getCodigo() {
         return codigo;
     }
 
-    @Override
-    public String getNombre() {
-        return nombre;
-    }
-
-    @Override
-    public String getDescripcion() {
-        return "";
-    }
-
-    @Override
-    public double getCosto() {
-        return 0;
-    }
-
-
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     public void setNombre(String nombre) {
@@ -54,5 +49,3 @@ public class Paquete implements IElemento {
         this.listServiciosTecnologicosPaquete = listServiciosTecnologicosPaquete;
     }
 }
-
-

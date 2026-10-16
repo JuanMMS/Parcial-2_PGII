@@ -1,3 +1,4 @@
+
 package uniquindio.empresa.model;
 
 import java.time.LocalDate;
@@ -6,59 +7,156 @@ import java.util.List;
 
 public class SolicitudServicio {
 
-
-     //atributos obligatorios de la clase
+    // Atributos obligatorios
     private String codigo;
     private LocalDate fechaCreacion;
     private double costoTotal;
     private Cliente cliente;
-    private List<Paquete> listPaquetesSolicitudServicio;
+    private List<IElemento> listElementos; // Polimorfismo: acepta servicios, paquetes y decoradores
 
-    //Atributos opcionales
+    // Atributos opcionales
     private LocalDate fechaProgramada;
     private String observaciones;
-    private int nivelPrioridad = 1; //Valor por defecto
-    private boolean atencionPresencial = false;
-
+    private int nivelPrioridad;
+    private boolean atencionPresencial;
 
     /**
-     * Metodo constructor con los atributos OBLIGATORIOS para crear la clase
-     * @param codigo
-     * @param cliente
+     * Constructor privado invocado únicamente por la clase Builder
      */
-    public SolicitudServicio(String codigo, Cliente cliente) {
-        this.codigo = codigo;
-        this.fechaCreacion = LocalDate.now();
-        this.cliente = cliente;
-        this.costoTotal = 0.0;
-        this.listPaquetesSolicitudServicio = new ArrayList<Paquete>();
+    private SolicitudServicio(Builder builder) {
+        this.codigo = builder.codigo;
+        this.fechaCreacion = builder.fechaCreacion;
+        this.cliente = builder.cliente;
+        this.listElementos = builder.listElementos;
+        this.fechaProgramada = builder.fechaProgramada;
+        this.observaciones = builder.observaciones;
+        this.nivelPrioridad = builder.nivelPrioridad;
+        this.atencionPresencial = builder.atencionPresencial;
+        this.costoTotal = calcularCostoTotal();
     }
 
-
-    public SolicitudServicio conFechaProgramada(LocalDate fechaProgramada) {
-        this.fechaProgramada = fechaProgramada;
-        return this;
-    }
-    public SolicitudServicio conObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-        return this;
-    }
-    public SolicitudServicio conNivelPrioridad(int nivelPrioridad) {
-        this.nivelPrioridad = nivelPrioridad;
-        return this;
-    }
-    public SolicitudServicio conAtencionPresencial(boolean atencionPresencial) {
-        this.atencionPresencial = atencionPresencial;
-        return this;
-    }
-
-
-    public SolicitudServicio build() {
-        if (codigo == null || codigo.isBlank()) {
-            throw new IllegalStateException("El código de la solicitud es obligatorio.");
-        } if (cliente == null) {
-            throw new IllegalStateException("Debe asociar un cliente a la solicitud.");
+    /**
+     * Revisa y calcula el costo total sumando todos los elementos contratados
+     */
+    public double calcularCostoTotal() {
+        double total = 0.0;
+        if (listElementos != null) {
+            for (IElemento elemento : listElementos) {
+                total += elemento.calcularCosto();
+            }
         }
-        return new SolicitudServicio(this);
+        return total;
+    }
+
+    // ==================== GETTERS ====================
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    public double getCostoTotal() {
+        return costoTotal;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<IElemento> getListElementos() {
+        return listElementos;
+    }
+
+    public LocalDate getFechaProgramada() {
+        return fechaProgramada;
+    }
+
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public int getNivelPrioridad() {
+        return nivelPrioridad;
+    }
+
+    public boolean isAtencionPresencial() {
+        return atencionPresencial;
+    }
+
+    // ==================== PATRÓN BUILDER (CLASE ESTÁTICA ANIDADA) ====================
+
+    public static class Builder {
+
+        // Atributos obligatorios
+        private String codigo;
+        private LocalDate fechaCreacion;
+        private Cliente cliente;
+        private List<IElemento> listElementos;
+
+        // Atributos opcionales con valores por defecto
+        private LocalDate fechaProgramada;
+        private String observaciones;
+        private int nivelPrioridad = 1;
+        private boolean atencionPresencial = false;
+
+        /**
+         * Constructor del Builder exigiendo los parámetros OBLIGATORIOS
+         */
+        public Builder(String codigo, Cliente cliente) {
+            this.codigo = codigo;
+            this.fechaCreacion = LocalDate.now();
+            this.cliente = cliente;
+            this.listElementos = new ArrayList<>();
+        }
+
+        public Builder listElementos(List<IElemento> listElementos) {
+            if (listElementos != null) {
+                this.listElementos = listElementos;
+            }
+            return this;
+        }
+
+        public Builder agregarElemento(IElemento elemento) {
+            if (elemento != null) {
+                this.listElementos.add(elemento);
+            }
+            return this;
+        }
+
+        public Builder conFechaProgramada(LocalDate fechaProgramada) {
+            this.fechaProgramada = fechaProgramada;
+            return this;
+        }
+
+        public Builder conObservaciones(String observaciones) {
+            this.observaciones = observaciones;
+            return this;
+        }
+
+        public Builder conNivelPrioridad(int nivelPrioridad) {
+            this.nivelPrioridad = nivelPrioridad;
+            return this;
+        }
+
+        public Builder conAtencionPresencial(boolean atencionPresencial) {
+            this.atencionPresencial = atencionPresencial;
+            return this;
+        }
+
+        /**
+         * Metodo que Construye y valida la instancia final de SolicitudServicio
+         */
+        public SolicitudServicio build() {
+            if (codigo == null || codigo.isBlank()) {
+                throw new IllegalStateException("El código de la solicitud es obligatorio.");
+            }
+            if (cliente == null) {
+                throw new IllegalStateException("Debe asociar un cliente a la solicitud.");
+            }
+            return new SolicitudServicio(this);
+        }
     }
 }
