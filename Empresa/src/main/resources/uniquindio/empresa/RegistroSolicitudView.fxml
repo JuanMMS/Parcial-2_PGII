@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" prefHeight="620.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uniquindio.empresa.viewcontroller.RegistroSolicitudViewController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <HBox>
+        <Button text="← Volver al Menú Principal" onAction="#volverMenuPrincipal" style="-fx-background-color: #bdc3c7; -fx-font-weight: bold;"/>
+    </HBox>
+    <Separator/>
+
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <!-- Izquierda: Formulario Builder -->
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <Label text="Registro de Solicitud (Builder)" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <Label text="Campos Obligatorios:" style="-fx-font-weight: bold; -fx-text-fill: #c0392b;"/>
+            <TextField fx:id="txtCodigoSol" promptText="Código Único de Solicitud"/>
+            <ComboBox fx:id="cbCliente" promptText="Seleccionar Cliente" prefWidth="280"/>
+
+            <Label text="Elementos contratados:"/>
+            <!-- AQUI ESTABA EL ERROR: Se le quitó el promptText al ListView -->
+            <ListView fx:id="lvElementosContratados" prefHeight="110" />
+
+            <Label text="Campos Opcionales:" style="-fx-font-weight: bold; -fx-text-fill: #7f8c8d;"/>
+            <DatePicker fx:id="dpFechaProgramada" promptText="Fecha Programada"/>
+            <TextField fx:id="txtNivelPrioridad" promptText="Nivel de Prioridad (ej: 1, 2, 3)"/>
+            <TextArea fx:id="txtObservaciones" promptText="Observaciones Técnicas" prefHeight="60"/>
+        </VBox>
+
+        <Separator orientation="VERTICAL"/>
+
+        <!-- Derecha: Consulta Legacy Adapter -->
+        <VBox spacing="15" HBox.hgrow="ALWAYS">
+            <Label text="Consulta de Técnicos (Adapter)" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="txtEspecialidadTecnico" promptText="Cód. Especialidad" prefWidth="140"/>
+                <Button text="Consultar Técnico" onAction="#consultarTecnico" style="-fx-background-color: #2980b9; -fx-text-fill: white;"/>
+            </HBox>
+
+            <TextArea fx:id="txtInfoTecnico" editable="false" prefHeight="85" promptText="Información del técnico devuelta por LegacySupport..."/>
+
+            <Separator/>
+
+            <VBox alignment="CENTER" spacing="10" style="-fx-background-color: #ecf0f1; -fx-padding: 15; -fx-border-radius: 5;">
+                <Button text="Calcular Costo Total" onAction="#calcularTotalSolicitud" style="-fx-background-color: #d35400; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Label fx:id="lblCostoTotalSolicitud" text="Total: $0.0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                <Button text="Confirmar Solicitud" onAction="#registrarSolicitud" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;" prefWidth="220" prefHeight="40"/>
+            </VBox>
+        </VBox>
+    </HBox>
+</VBox>
