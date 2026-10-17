@@ -3,7 +3,7 @@ package uniquindio.empresa.model;
 import java.util.ArrayList;
 
 public class Cliente {
-    private String doucmento;
+    private String documento;
     private String nombreCompleto;
     private String correoElectronico;
     private ArrayList<SolicitudServicio> listSolicitudesServicioCliente;
@@ -16,7 +16,7 @@ public class Cliente {
      * @param correoElectronico
      */
     public Cliente(String documento, String nombreCompleto, String correoElectronico){
-        this.doucmento = documento;
+        this.documento = documento;
         this.nombreCompleto = nombreCompleto;
         this.correoElectronico = correoElectronico;
         this.listSolicitudesServicioCliente = new ArrayList<>();
@@ -27,11 +27,11 @@ public class Cliente {
      */
 
     public String getDocumento() {
-        return doucmento;
+        return documento;
     }
 
     public void setDocumento(String documento) {
-        this.doucmento = doucmento;
+        this.documento = documento;
     }
 
     public String getNombreCompleto() {

@@ -1,5 +1,7 @@
 package uniquindio.empresa.model;
 
+import java.util.List;
+
 public class AtencionPrioritaria extends DecoradorComplemento{
 
     /**
@@ -17,5 +19,15 @@ public class AtencionPrioritaria extends DecoradorComplemento{
     @Override
     public double valorComplemento() {
         return servicioTecnologico.valorComplemento() + 35000;
+    }
+
+    @Override
+    public double calcularCosto() {
+        return 35000;
+    }
+
+    @Override
+    public List<IElemento> obtenerElementos() {
+        return List.of();
     }
 }

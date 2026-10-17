@@ -2,7 +2,7 @@ package uniquindio.empresa.model;
 
 import java.io.Serializable;
 
-public abstract class DecoradorComplemento implements IComplemento {
+public abstract class DecoradorComplemento implements IComplemento, IElemento {
     private String id;
     protected final ServicioTecnologico servicioTecnologico;
 

@@ -13,6 +13,6 @@ public class FactoryInstalacionRedes extends FactoryServicioTecnologico{
      */
     @Override
     public ServicioTecnologico crearServicioTecnologico(DatosServicioTecnologico datos) {
-        return new InstalacionRedes(datos.getCodigo(), datos.getNombre(), datos.getDescripcion(), datos.getCostoBase());
+        return new InstalacionRedes(datos.getCodigo(), datos.getNombre(), datos.getDescripcion());
     }
 }
