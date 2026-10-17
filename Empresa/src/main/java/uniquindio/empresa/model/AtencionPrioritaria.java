@@ -20,14 +20,5 @@ public class AtencionPrioritaria extends DecoradorComplemento{
     public double valorComplemento() {
         return servicioTecnologico.valorComplemento() + 35000;
     }
-
-    @Override
-    public double calcularCosto() {
-        return 35000;
-    }
-
-    @Override
-    public List<IElemento> obtenerElementos() {
-        return List.of();
-    }
+    
 }
