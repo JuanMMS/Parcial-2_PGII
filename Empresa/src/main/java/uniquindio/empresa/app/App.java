@@ -68,19 +68,18 @@ public class App extends Application {
 
         empresa.crearPaquete(paqueteBasico);
 
-        System.out.println("Datos quemados inicializados correctamente en TechSolutions.");
+        System.out.println("✅ Datos quemados inicializados correctamente en TechSolutions.");
     }
 
     /**
      * Método para simular la llegada de datos del sistema Legacy y probar el Adapter
      */
     private void probarAdaptadorTecnicos() {
-        System.out.println("\n--- VERIFICACION PATRON ADAPTADOR LEGACY ---");
+        System.out.println("\n--- PROBANDO ADAPTADOR LEGACY ---");
 
         // Simulamos las respuestas que daría el sistema antiguo (Legacy)
-        TecnicoLegacyService tecnico1 = new TecnicoLegacyService("1", "TEC-001|DISPONIBLE|30000");
-        TecnicoLegacyService tecnico2 = new TecnicoLegacyService("2", "TEC-002|NO_DISPONIBLE|25000");
-        TecnicoLegacyService tecnico3 = new TecnicoLegacyService("3", "TEC-003|DISPONIBLE|15000");
+        TecnicoLegacyService tecnico1 = new TecnicoLegacyService("105", "TEC-105|DISPONIBLE|30000");
+        TecnicoLegacyService tecnico2 = new TecnicoLegacyService("102", "TEC-102|NO_DISPONIBLE|25000");
 
         // Pasamos los técnicos por nuestro Adaptador
         IConsultaTecnico adaptador = new AdapterLegacy(tecnico1); // Inicializamos con el primero
@@ -94,12 +93,6 @@ public class App extends Application {
         System.out.println("  ID: " + adaptador.consultarCodigoTecnico(tecnico2));
         System.out.println("  Disponible: " + adaptador.consultarDisponibilidad(tecnico2));
         System.out.println("  Costo Desplazamiento: $" + adaptador.consultarValorDesplazamiento(tecnico2));
-
-        System.out.println("Traduciendo Técnico 3:");
-        System.out.println("  ID: " + adaptador.consultarCodigoTecnico(tecnico3));
-        System.out.println("  Disponible: " + adaptador.consultarDisponibilidad(tecnico3));
-        System.out.println("  Costo Desplazamiento: $" + adaptador.consultarValorDesplazamiento(tecnico3));
-
         System.out.println("---------------------------------\n");
     }
 
