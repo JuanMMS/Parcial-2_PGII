@@ -12,6 +12,9 @@ import uniquindio.empresa.model.Empresa;
 import uniquindio.empresa.model.InstalacionRedes;
 import uniquindio.empresa.model.MantenimientoPreventivo;
 import uniquindio.empresa.model.Paquete;
+import uniquindio.empresa.model.TecnicoLegacyService;
+import uniquindio.empresa.model.AdapterLegacy;
+import uniquindio.empresa.model.IConsultaTecnico;
 
 import java.io.IOException;
 
@@ -19,8 +22,11 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // 1. Cargamos los datos quemados en el Singleton antes de iniciar la interfaz
+        // 1. Cargamos los datos quemados en el Singleton
         inicializarDatosQuemados();
+
+        // 2. Probamos que el adaptador de técnicos Legacy funciona correctamente
+        probarAdaptadorTecnicos();
 
         try {
             // Carga la vista principal. Asegúrate de que la ruta coincida con tu carpeta resources.
@@ -30,7 +36,7 @@ public class App extends Application {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("TechSolutions - Menú Principal");
-            primaryStage.setResizable(false); // Opcional: evita que la ventana cambie de tamaño
+            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
             System.err.println("Error al cargar la vista principal: " + e.getMessage());
@@ -42,7 +48,6 @@ public class App extends Application {
      * Método para cargar datos iniciales (quemados) en el sistema.
      */
     private void inicializarDatosQuemados() {
-        // Obtenemos la única instancia del sistema (Singleton)
         Empresa empresa = Empresa.getInstance();
 
         // 1. Crear e inyectar Clientes
@@ -58,14 +63,44 @@ public class App extends Application {
 
         // 3. Crear e inyectar Paquetes
         Paquete paqueteBasico = new Paquete("PAQ-001", "Paquete Corporativo Básico");
-        // Agregamos los servicios al paquete usando el Composite
         paqueteBasico.getListServiciosTecnologicosPaquete().add(red);
         paqueteBasico.getListServiciosTecnologicosPaquete().add(mantPrev);
 
         empresa.crearPaquete(paqueteBasico);
 
-        // Mensaje de verificación en consola
-        System.out.println("✅ Datos quemados inicializados correctamente en TechSolutions.");
+        System.out.println("Datos quemados inicializados correctamente en TechSolutions.");
+    }
+
+    /**
+     * Método para simular la llegada de datos del sistema Legacy y probar el Adapter
+     */
+    private void probarAdaptadorTecnicos() {
+        System.out.println("\n--- VERIFICACION PATRON ADAPTADOR LEGACY ---");
+
+        // Simulamos las respuestas que daría el sistema antiguo (Legacy)
+        TecnicoLegacyService tecnico1 = new TecnicoLegacyService("1", "TEC-001|DISPONIBLE|30000");
+        TecnicoLegacyService tecnico2 = new TecnicoLegacyService("2", "TEC-002|NO_DISPONIBLE|25000");
+        TecnicoLegacyService tecnico3 = new TecnicoLegacyService("3", "TEC-003|DISPONIBLE|15000");
+
+        // Pasamos los técnicos por nuestro Adaptador
+        IConsultaTecnico adaptador = new AdapterLegacy(tecnico1); // Inicializamos con el primero
+
+        System.out.println("Traduciendo Técnico 1:");
+        System.out.println("  ID: " + adaptador.consultarCodigoTecnico(tecnico1));
+        System.out.println("  Disponible: " + adaptador.consultarDisponibilidad(tecnico1));
+        System.out.println("  Costo Desplazamiento: $" + adaptador.consultarValorDesplazamiento(tecnico1));
+
+        System.out.println("Traduciendo Técnico 2:");
+        System.out.println("  ID: " + adaptador.consultarCodigoTecnico(tecnico2));
+        System.out.println("  Disponible: " + adaptador.consultarDisponibilidad(tecnico2));
+        System.out.println("  Costo Desplazamiento: $" + adaptador.consultarValorDesplazamiento(tecnico2));
+
+        System.out.println("Traduciendo Técnico 3:");
+        System.out.println("  ID: " + adaptador.consultarCodigoTecnico(tecnico3));
+        System.out.println("  Disponible: " + adaptador.consultarDisponibilidad(tecnico3));
+        System.out.println("  Costo Desplazamiento: $" + adaptador.consultarValorDesplazamiento(tecnico3));
+
+        System.out.println("---------------------------------\n");
     }
 
     public static void main(String[] args) {

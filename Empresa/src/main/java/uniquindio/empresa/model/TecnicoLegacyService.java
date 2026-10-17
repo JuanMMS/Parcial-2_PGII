@@ -4,15 +4,23 @@ public class TecnicoLegacyService {
     private String codigoEspecialidad;
     private String datosTecnico;
 
-
     /**
-     * Metoodo constructor de la clase TecnicoLegacyService
+     * Metodo constructor de la clase Tecnico legacy Service
+     * @param codigoEspecialidad
      * @param datosTecnico
      */
     public TecnicoLegacyService(String codigoEspecialidad, String datosTecnico) {
         this.codigoEspecialidad = codigoEspecialidad;
         this.datosTecnico = datosTecnico;
+    }
 
+    // Nuevo Getter
+    public String getCodigoEspecialidad() {
+        return codigoEspecialidad;
+    }
+
+    public void setCodigoEspecialidad(String codigoEspecialidad) {
+        this.codigoEspecialidad = codigoEspecialidad;
     }
 
     public String getDatosTecnico() {
@@ -22,5 +30,4 @@ public class TecnicoLegacyService {
     public void setDatosTecnico(String datosTecnico) {
         this.datosTecnico = datosTecnico;
     }
-
 }
