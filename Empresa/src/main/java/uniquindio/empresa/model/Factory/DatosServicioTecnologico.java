@@ -1,10 +1,14 @@
 package uniquindio.empresa.model.Factory;
 
+import uniquindio.empresa.model.IElemento;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatosServicioTecnologico {
     private String codigo;
     private String nombre;
     private String descripcion;
-    private double costoBase;
 
 
     /**
@@ -12,13 +16,11 @@ public class DatosServicioTecnologico {
      * @param codigo
      * @param nombre
      * @param descripcion
-     * @param costoBase
      */
-    public DatosServicioTecnologico(String codigo, String nombre, String descripcion, double costoBase) {
+    public DatosServicioTecnologico(String codigo, String nombre, String descripcion) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.costoBase = costoBase;
 
     }
 
@@ -50,11 +52,4 @@ public class DatosServicioTecnologico {
         this.descripcion = descripcion;
     }
 
-    public double getCostoBase() {
-        return costoBase;
-    }
-
-    public void setCostoBase(double costoBase) {
-        this.costoBase = costoBase;
-    }
 }

@@ -4,12 +4,12 @@ public class MantenimientoCorrectivo extends ServicioTecnologico{
 
     /**
      * Metodo constructor de la clase MantenimientoCorrectivo
+     *
      * @param codigo
      * @param nombre
      * @param descripcion
-     * @param costoBase
      */
-    public MantenimientoCorrectivo(String codigo, String nombre, String descripcion, double costoBase) {
+    public MantenimientoCorrectivo(String codigo, String nombre, String descripcion) {
         super(codigo, nombre, descripcion);
     }
 
@@ -19,6 +19,6 @@ public class MantenimientoCorrectivo extends ServicioTecnologico{
      */
     @Override
     public double calcularCosto() {
-        return 120000 + getCosto();
+        return 120000;
     }
 }
