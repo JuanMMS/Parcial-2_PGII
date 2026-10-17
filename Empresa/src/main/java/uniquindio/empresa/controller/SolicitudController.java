@@ -23,7 +23,8 @@ public class SolicitudController {
         return empresa.getListPaquetes();
     }
 
-    public DTOInfoTecnico consultarTecnicoLegacy(String especialidad) {
+    // Retornamos el objeto Legacy directamente, sin DTOs y respetando el modelo
+    public TecnicoLegacyService consultarTecnicoLegacy(String especialidad) {
         String datosLegacy;
         if ("105".equals(especialidad) || "REDES".equalsIgnoreCase(especialidad)) {
             datosLegacy = "TEC-105|DISPONIBLE|30000";
@@ -33,14 +34,7 @@ public class SolicitudController {
             datosLegacy = "SIN_TECNICO|NO_DISPONIBLE|0";
         }
 
-        TecnicoLegacyService legacyService = new TecnicoLegacyService(datosLegacy);
-        AdapterLegacy adapter = new AdapterLegacy(legacyService);
-
-        String cod = adapter.consultarCodigoTecnico(legacyService);
-        boolean disp = adapter.consultarDisponibilidad(legacyService);
-        double costo = adapter.consultarValorDesplazamiento(legacyService);
-
-        return new DTOInfoTecnico(cod, disp, costo);
+        return new TecnicoLegacyService(datosLegacy);
     }
 
     public boolean registrarSolicitud(String codigo, Cliente cliente, List<IElemento> elementos,

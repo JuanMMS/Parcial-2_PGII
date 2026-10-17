@@ -50,42 +50,33 @@ public class GestionServiciosViewController {
             return;
         }
 
-        ServicioTecnologico decorado = controller.construirServicioPersonalizado(
+        // Llamamos al método que simula matemáticamente el costo sin romper los tipos del diagrama
+        double total = controller.calcularCostoSimulado(
                 seleccionado, chkPrioritaria.isSelected(), chkSoporte.isSelected(), chkDomicilio.isSelected()
         );
-        lblCostoTotalServicio.setText(String.format("Costo Total: $%.2f", decorado.calcularCosto()));
+        lblCostoTotalServicio.setText(String.format("Costo Total: $%.2f", total));
     }
 
     @FXML
     void crearServicio() {
-        ServicioTecnologico base = cbServiciosBase.getValue();
-        if (base == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Advertencia", "Seleccione un servicio base.");
-            return;
-        }
-
-        boolean exito = controller.guardarServicioPersonalizado(
-                base, chkPrioritaria.isSelected(), chkSoporte.isSelected(), chkDomicilio.isSelected()
-        );
-
-        if (exito) {
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Éxito", "Servicio personalizado creado e integrado al catálogo.");
-            cbServiciosBase.setItems(FXCollections.observableArrayList(controller.obtenerServiciosTecnologicos()));
-        } else {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo registrar el servicio personalizado.");
-        }
+        // En el diagrama de clases, los decoradores no se guardan en el listado base de la empresa.
+        // Se instancian dinámicamente cuando se crea la SolicitudServicio.
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Información del Catálogo",
+                "Según el modelo de negocio, los servicios personalizados (decorados) no se guardan en el catálogo base. Sus complementos se aplicarán automáticamente al registrar una Solicitud de Servicio con las opciones correspondientes.");
     }
 
     @FXML
     void volverMenuPrincipal(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uniquindio/empresa/view/MainMenuView.fxml"));
+            // Se eliminó "/view" de la ruta para que coincida con tu carpeta resources
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uniquindio/empresa/MainMenuView.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Menú Principal - TechSolutions");
             stage.show();
         } catch (IOException e) {
+            System.err.println("Error al cargar la vista: " + e.getMessage());
             e.printStackTrace();
         }
     }

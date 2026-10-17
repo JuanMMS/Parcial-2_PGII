@@ -10,12 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import uniquindio.empresa.controller.DTOInfoTecnico;
 import uniquindio.empresa.controller.SolicitudController;
-import uniquindio.empresa.model.Cliente;
-import uniquindio.empresa.model.IElemento;
-import uniquindio.empresa.model.Paquete;
-import uniquindio.empresa.model.ServicioTecnologico;
+import uniquindio.empresa.model.*;
 
 import java.io.IOException;
 
@@ -78,12 +74,17 @@ public class RegistroSolicitudViewController {
             return;
         }
 
-        DTOInfoTecnico infoTecnico = controller.consultarTecnicoLegacy(codigoEspecialidad);
-        tecnicoDisponible = infoTecnico.isDisponible();
-        costoDesplazamientoActual = infoTecnico.getCostoDesplazamiento();
+        // 1. Obtenemos el objeto Legacy del controlador
+        TecnicoLegacyService legacyService = controller.consultarTecnicoLegacy(codigoEspecialidad);
+        // 2. Creamos el adaptador
+        IConsultaTecnico adaptadorTecnico = new AdapterLegacy(legacyService);
+
+        // 3. Llamamos a los métodos pasándole el legacyService como exige tu interfaz
+        tecnicoDisponible = adaptadorTecnico.consultarDisponibilidad(legacyService);
+        costoDesplazamientoActual = adaptadorTecnico.consultarValorDesplazamiento(legacyService);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Técnico ID: ").append(infoTecnico.getCodigoTecnico()).append("\n");
+        sb.append("Técnico ID: ").append(adaptadorTecnico.consultarCodigoTecnico(legacyService)).append("\n");
         sb.append("Estado: ").append(tecnicoDisponible ? "DISPONIBLE" : "NO DISPONIBLE").append("\n");
         sb.append("Costo Desplazamiento: $").append(costoDesplazamientoActual);
 
@@ -147,13 +148,15 @@ public class RegistroSolicitudViewController {
     @FXML
     void volverMenuPrincipal(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uniquindio/empresa/view/MainMenuView.fxml"));
+            // Se eliminó "/view" de la ruta para que coincida con tu carpeta resources
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uniquindio/empresa/MainMenuView.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Menú Principal - TechSolutions");
             stage.show();
         } catch (IOException e) {
+            System.err.println("Error al cargar la vista: " + e.getMessage());
             e.printStackTrace();
         }
     }
