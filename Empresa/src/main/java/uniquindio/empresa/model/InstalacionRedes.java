@@ -20,6 +20,6 @@ public class InstalacionRedes extends ServicioTecnologico{
      */
     @Override
     public double calcularCosto() {
-        return 180000 + getCosto();
+        return 180000;
     }
 }
