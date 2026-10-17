@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import uniquindio.empresa.controller.PaqueteController;
@@ -15,13 +12,13 @@ import uniquindio.empresa.model.IElemento;
 import uniquindio.empresa.model.Paquete;
 import uniquindio.empresa.model.ServicioTecnologico;
 
-import java.io.IOException;
-
 public class ConfiguracionPaquetesViewController {
 
     @FXML private TextField txtCodigoPaquete;
     @FXML private TextField txtNombrePaquete;
+
     @FXML private ComboBox<IElemento> cbElementosDisponibles;
+    @FXML private ListView<IElemento> lvDetalleSeleccionado; // Nueva lista para detalles
     @FXML private ListView<IElemento> lvContenidoPaquete;
     @FXML private Label lblCostoTotalPaquete;
 
@@ -33,37 +30,14 @@ public class ConfiguracionPaquetesViewController {
         lvContenidoPaquete.setItems(elementosPaqueteActual);
         cargarElementosDisponibles();
 
-        cbElementosDisponibles.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(IElemento item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText("");
-                } else if (item instanceof ServicioTecnologico s) {
-                    setText("[Servicio] " + s.getNombre() + " ($" + s.calcularCosto() + ")");
-                } else if (item instanceof Paquete p) {
-                    setText("[Paquete] " + p.getNombre() + " ($" + p.calcularCosto() + ")");
-                } else {
-                    setText(item.toString());
-                }
-            }
-        });
-        cbElementosDisponibles.setButtonCell(cbElementosDisponibles.getCellFactory().call(null));
+        // Configurar formato visual para todos los listados usando código reutilizable
+        configurarCeldaComboBox(cbElementosDisponibles);
+        configurarCeldaListView(lvContenidoPaquete);
+        configurarCeldaListView(lvDetalleSeleccionado);
 
-        lvContenidoPaquete.setCellFactory(param -> new ListCell<>() {
-            @Override
-            protected void updateItem(IElemento item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText("");
-                } else if (item instanceof ServicioTecnologico s) {
-                    setText("[Servicio] " + s.getNombre() + " - $" + s.calcularCosto());
-                } else if (item instanceof Paquete p) {
-                    setText("[Paquete] " + p.getNombre() + " - $" + p.calcularCosto());
-                } else {
-                    setText(item.toString());
-                }
-            }
+        // LISTENER MAGICO: Cuando el usuario selecciona algo, actualiza la lista de detalles
+        cbElementosDisponibles.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            actualizarDetallesSeleccion(newVal);
         });
     }
 
@@ -72,6 +46,18 @@ public class ConfiguracionPaquetesViewController {
         todos.addAll(controller.obtenerServiciosTecnologicos());
         todos.addAll(controller.obtenerPaquetes());
         cbElementosDisponibles.setItems(todos);
+    }
+
+    // Método que aprovecha el patrón Composite para mostrar el contenido
+    private void actualizarDetallesSeleccion(IElemento seleccionado) {
+        if (seleccionado == null) {
+            lvDetalleSeleccionado.getItems().clear();
+            return;
+        }
+
+        // El método obtenerElementos() funciona para Servicios (devuelve 1) y Paquetes (devuelve todos)
+        ObservableList<IElemento> contenidos = FXCollections.observableArrayList(seleccionado.obtenerElementos());
+        lvDetalleSeleccionado.setItems(contenidos);
     }
 
     @FXML
@@ -98,7 +84,8 @@ public class ConfiguracionPaquetesViewController {
                 txtNombrePaquete.clear();
                 elementosPaqueteActual.clear();
                 lblCostoTotalPaquete.setText("Total Paquete: $0.0");
-                cargarElementosDisponibles();
+                cargarElementosDisponibles(); // Actualiza el combo para mostrar el nuevo paquete
+                lvDetalleSeleccionado.getItems().clear(); // Limpia los detalles mostrados
             } else {
                 mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ya existe un paquete registrado con ese código.");
             }
@@ -118,9 +105,19 @@ public class ConfiguracionPaquetesViewController {
 
     @FXML
     void volverMenuPrincipal(ActionEvent event) {
-        // Obtiene la ventana (Stage) actual mediante el componente que disparó el evento y la cierra full
         Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
         ventanaActual.close();
+    }
+
+    // ======================= MÉTODOS DE UTILIDAD Y LIMPIEZA =======================
+
+    private void configurarCeldaComboBox(ComboBox<IElemento> comboBox) {
+        comboBox.setCellFactory(param -> new CeldaElemento());
+        comboBox.setButtonCell(new CeldaElemento());
+    }
+
+    private void configurarCeldaListView(ListView<IElemento> listView) {
+        listView.setCellFactory(param -> new CeldaElemento());
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
@@ -129,5 +126,22 @@ public class ConfiguracionPaquetesViewController {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    // Clase interna que elimina todo el código basura duplicado de las ListCell
+    private static class CeldaElemento extends ListCell<IElemento> {
+        @Override
+        protected void updateItem(IElemento item, boolean empty) {
+            super.updateItem(item, empty);
+            if (empty || item == null) {
+                setText("");
+            } else if (item instanceof ServicioTecnologico s) {
+                setText("[Servicio] " + s.getNombre() + " - $" + s.calcularCosto());
+            } else if (item instanceof Paquete p) {
+                setText("[Paquete] " + p.getNombre() + " - $" + p.calcularCosto());
+            } else {
+                setText(item.toString());
+            }
+        }
     }
 }
