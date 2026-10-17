@@ -4,6 +4,7 @@ import uniquindio.empresa.model.*;
 import java.time.LocalDate;
 import java.util.List;
 
+
 public class SolicitudController {
     private final Empresa empresa;
 
@@ -23,7 +24,6 @@ public class SolicitudController {
         return empresa.getListPaquetes();
     }
 
-    // Retornamos el objeto Legacy directamente, sin DTOs y respetando el modelo
     public TecnicoLegacyService consultarTecnicoLegacy(String especialidad) {
         String datosLegacy;
         if ("105".equals(especialidad) || "REDES".equalsIgnoreCase(especialidad)) {
@@ -34,7 +34,8 @@ public class SolicitudController {
             datosLegacy = "SIN_TECNICO|NO_DISPONIBLE|0";
         }
 
-        return new TecnicoLegacyService(datosLegacy);
+        // CORRECCIÓN AQUÍ: Pasamos ambos parámetros al constructor
+        return new TecnicoLegacyService(especialidad, datosLegacy);
     }
 
     public boolean registrarSolicitud(String codigo, Cliente cliente, List<IElemento> elementos,
@@ -52,7 +53,8 @@ public class SolicitudController {
             } catch (NumberFormatException ignored) {}
         }
 
-        SolicitudServicioBuilder solicitud = new SolicitudServicioBuilder.Builder(codigo, cliente)
+        // CORRECCIÓN AQUÍ: Asegúrate de llamar a SolicitudServicio.Builder (como lo definimos antes)
+        SolicitudServicio solicitud = new SolicitudServicio.Builder(codigo, cliente)
                 .listElementos(elementos)
                 .conFechaProgramada(fechaProg)
                 .conObservaciones(observaciones)

@@ -12,7 +12,7 @@ public final class Empresa {
 
     private ArrayList<ServicioTecnologico> listServicioTecnologicos;
     private ArrayList<Cliente> listClientes;
-    private ArrayList<SolicitudServicioBuilder> listSolicitudesServicio;
+    private ArrayList<SolicitudServicio> listSolicitudesServicio;
     private ArrayList<Paquete> listPaquetes;
 
     private FactoryServicioTecnologico theFactoryServicioTecnologico;
@@ -163,16 +163,16 @@ public final class Empresa {
     // 4. GESTIÓN DE SOLICITUDES DE SERVICIO (CRUD)
     // =========================================================================
 
-    public boolean crearSolicitudServicio(SolicitudServicioBuilder nuevaSolicitud) {
+    public boolean crearSolicitudServicio(SolicitudServicio nuevaSolicitud) {
         if (nuevaSolicitud == null || buscarSolicitudServicio(nuevaSolicitud.getCodigo()) != null) {
             return false;
         }
         return listSolicitudesServicio.add(nuevaSolicitud);
     }
 
-    public SolicitudServicioBuilder buscarSolicitudServicio(String codigo) {
+    public SolicitudServicio buscarSolicitudServicio(String codigo) {
         if (codigo == null || codigo.isBlank()) return null;
-        for (SolicitudServicioBuilder solicitud : listSolicitudesServicio) {
+        for (SolicitudServicio solicitud : listSolicitudesServicio) {
             if (solicitud.getCodigo().equalsIgnoreCase(codigo)) {
                 return solicitud;
             }
@@ -180,8 +180,8 @@ public final class Empresa {
         return null;
     }
 
-    public boolean actualizarSolicitudServicio(String codigo, SolicitudServicioBuilder solicitudActualizada) {
-        SolicitudServicioBuilder solicitudExistente = buscarSolicitudServicio(codigo);
+    public boolean actualizarSolicitudServicio(String codigo, SolicitudServicio solicitudActualizada) {
+        SolicitudServicio solicitudExistente = buscarSolicitudServicio(codigo);
         if (solicitudExistente != null && solicitudActualizada != null) {
             int index = listSolicitudesServicio.indexOf(solicitudExistente);
             listSolicitudesServicio.set(index, solicitudActualizada);
@@ -191,7 +191,7 @@ public final class Empresa {
     }
 
     public boolean eliminarSolicitudServicio(String codigo) {
-        SolicitudServicioBuilder solicitud = buscarSolicitudServicio(codigo);
+        SolicitudServicio solicitud = buscarSolicitudServicio(codigo);
         if (solicitud != null) {
             return listSolicitudesServicio.remove(solicitud);
         }
@@ -222,7 +222,7 @@ public final class Empresa {
         return listClientes;
     }
 
-    public ArrayList<SolicitudServicioBuilder> getListSolicitudesServicio() {
+    public ArrayList<SolicitudServicio> getListSolicitudesServicio() {
         return listSolicitudesServicio;
     }
 
