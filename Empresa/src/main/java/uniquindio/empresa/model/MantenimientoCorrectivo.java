@@ -19,6 +19,6 @@ public class MantenimientoCorrectivo extends ServicioTecnologico{
      */
     @Override
     public double calcularCosto() {
-        return 120000 + getCosto();
+        return 120000;
     }
 }
