@@ -8,9 +8,8 @@ public class InstalacionRedes extends ServicioTecnologico{
      * @param codigo
      * @param nombre
      * @param descripcion
-     * @param costoBase
      */
-    public InstalacionRedes(String codigo, String nombre, String descripcion, double costoBase) {
+    public InstalacionRedes(String codigo, String nombre, String descripcion) {
         super(codigo, nombre, descripcion);
     }
 

@@ -59,7 +59,7 @@ public class AdapterLegacy implements IConsultaTecnico {
             return 0;
         }
         String[] partes = sinTraducir.split("\\|");
-        if(partes.length > 3){
+        if(partes.length > 2){
             try{
                 return Double.parseDouble(partes[2]);
             } catch (NumberFormatException e){
