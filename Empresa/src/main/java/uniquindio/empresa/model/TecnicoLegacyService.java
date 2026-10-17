@@ -1,6 +1,7 @@
 package uniquindio.empresa.model;
 
 public class TecnicoLegacyService {
+    private String codigoEspecialidad;
     private String datosTecnico;
 
 
@@ -8,8 +9,10 @@ public class TecnicoLegacyService {
      * Metoodo constructor de la clase TecnicoLegacyService
      * @param datosTecnico
      */
-    public TecnicoLegacyService(String datosTecnico) {
+    public TecnicoLegacyService(String codigoEspecialidad, String datosTecnico) {
+        this.codigoEspecialidad = codigoEspecialidad;
         this.datosTecnico = datosTecnico;
+
     }
 
     public String getDatosTecnico() {
