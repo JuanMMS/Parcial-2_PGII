@@ -1,5 +1,7 @@
 package uniquindio.empresa.model;
 
+import java.util.List;
+
 public class AtencionPrioritaria extends DecoradorComplemento{
 
     /**
@@ -18,4 +20,5 @@ public class AtencionPrioritaria extends DecoradorComplemento{
     public double valorComplemento() {
         return servicioTecnologico.valorComplemento() + 35000;
     }
+    
 }

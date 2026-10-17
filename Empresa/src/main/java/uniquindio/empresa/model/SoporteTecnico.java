@@ -1,5 +1,7 @@
 package uniquindio.empresa.model;
 
+import java.util.List;
+
 public class SoporteTecnico extends DecoradorComplemento{
 
     public SoporteTecnico(String id, ServicioTecnologico servicioTecnologico) {
@@ -14,5 +16,15 @@ public class SoporteTecnico extends DecoradorComplemento{
     @Override
     public double valorComplemento() {
         return servicioTecnologico.valorComplemento() + 50000;
+    }
+
+    @Override
+    public double calcularCosto() {
+        return 50000;
+    }
+
+    @Override
+    public List<IElemento> obtenerElementos() {
+        return List.of();
     }
 }
