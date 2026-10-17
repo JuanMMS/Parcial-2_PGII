@@ -20,7 +20,6 @@ public abstract class ServicioTecnologico implements IElemento, IComplemento {
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.costoBase = calcularCosto();
 
     }
 
