@@ -119,13 +119,15 @@ public class ConfiguracionPaquetesViewController {
     @FXML
     void volverMenuPrincipal(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uniquindio/empresa/view/MainMenuView.fxml"));
+            // Se eliminó "/view" de la ruta para que coincida con tu carpeta resources
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uniquindio/empresa/MainMenuView.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Menú Principal - TechSolutions");
             stage.show();
         } catch (IOException e) {
+            System.err.println("Error al cargar la vista: " + e.getMessage());
             e.printStackTrace();
         }
     }
