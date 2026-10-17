@@ -147,18 +147,9 @@ public class RegistroSolicitudViewController {
 
     @FXML
     void volverMenuPrincipal(ActionEvent event) {
-        try {
-            // Se eliminó "/view" de la ruta para que coincida con tu carpeta resources
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/uniquindio/empresa/MainMenuView.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Menú Principal - TechSolutions");
-            stage.show();
-        } catch (IOException e) {
-            System.err.println("Error al cargar la vista: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // Obtiene la ventana (Stage) actual mediante el componente que disparó el evento y la cierra full
+        Stage ventanaActual = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        ventanaActual.close();
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
