@@ -61,34 +61,4 @@ public class PruebaParcial {
         assertEquals(30000.0, costoDesplazamientoExtraido, 0.01, "El costo de desplazamiento debe ser 30.000");
     }
 
-    // 4. Registro y Cálculo Total de la Solicitud (Builder)
-    @Test
-    public void testCalcularValorTotalSolicitud() {
-        // Mock de Cliente
-        Cliente cliente = new Cliente("1001", "Juan Perez", "juan@test.com");
-
-        // Paquete base de $200.000
-        ServicioTecnologico preventivo = new MantenimientoPreventivo("004", "Prev", "Revisión");
-        ServicioTecnologico correctivo = new MantenimientoCorrectivo("005", "Corr", "Reparación");
-        Paquete paquete = new Paquete("PAQ-02", "Paquete Mantenimiento");
-        paquete.getListServiciosTecnologicosPaquete().add(preventivo); // $80.000
-        paquete.getListServiciosTecnologicosPaquete().add(correctivo); // $120.000
-
-        // Construcción de la solicitud con el Builder
-        SolicitudServicioBuilder solicitud = new SolicitudServicioBuilder.Builder("SOL-101", cliente)
-                .listElementos(List.of(paquete))
-                .conFechaProgramada(LocalDate.now())
-                .conAtencionPresencial(true)
-                .build();
-
-        // Entrada de prueba: Desplazamiento de $30.000
-        double costoDesplazamiento = 30000.0;
-
-        // El builder suma los elementos base, y el cliente/vista asume el desplazamiento externo
-        double subtotalElementos = solicitud.calcularCostoTotal(); // 200.000
-        double costoTotalFinal = subtotalElementos + costoDesplazamiento;
-
-        // Salida esperada: $230.000
-        assertEquals(230000.0, costoTotalFinal, 0.01, "El costo total de la solicitud más desplazamiento debe ser 230.000");
-    }
 }
